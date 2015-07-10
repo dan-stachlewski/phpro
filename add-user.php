@@ -1,3 +1,10 @@
+<?php
+
+/*** BEGIN THE SESSION ***/
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
