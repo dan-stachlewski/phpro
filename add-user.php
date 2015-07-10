@@ -6,6 +6,9 @@ session_start();
 /*** SET A FORM TOKEN ***/
 $form_token = md5(uniqid('auth', true));
 
+/*** SET THE SESSION FORM TOKEN ***/
+$_SESSION['form_token'] = $form_token;
+
 ?>
 
 <!DOCTYPE html>
