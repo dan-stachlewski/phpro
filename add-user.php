@@ -23,6 +23,27 @@ $_SESSION['form_token'] = $form_token;
     </head>
     <body>
 	<h1>Login Authentication System</h1>
-        <script src="js/main.js"></script>
+	<h2>Add a User</h2>
+	<!-- LOGIN FORM -->
+	<form action="add-user-submit.php" method="POST">
+		<fieldset>
+		<!-- USERNAME INPUT FIELD-->
+			<p>
+				<label for="username">Username</label>
+				<input type="text" id="username" name="username" maxlength="20" value="" >
+			</p>
+		<!-- PASSWORD INPUT FIELD-->
+			<p>
+				<label for="password">Password</label>
+				<input type="text" id="password" name="password" maxlength="20" value="" >
+			</p>
+		<!-- 'HIDDEN' FORM TOKEN INPUT FIELD-->
+			<p>
+				<input type="hidden" name="form_token" value="<?= $form_token; ?>" >
+		<!-- SUBMIT BUTTON [ LOGIN ] -->
+				<input type="submit" value="&rarr; Login" >
+			</p>
+		</fieldset>
+	</form>
     </body>
 </html>
