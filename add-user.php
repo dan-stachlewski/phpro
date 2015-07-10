@@ -3,6 +3,9 @@
 /*** BEGIN THE SESSION ***/
 session_start();
 
+/*** SET A FORM TOKEN ***/
+$form_token = md5(uniqid('auth', true));
+
 ?>
 
 <!DOCTYPE html>
