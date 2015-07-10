@@ -26,8 +26,20 @@ elseif ($_POST['form_token']) {
     </head>
     <body>
 	<h1>Sample Login</h1>
-	<form action="">
-		
+	<form action="add-user-submit.php" method="POST">
+    <ul>
+        <li>
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" value="">
+        </li>
+        <li>
+            <label for="password">Password</label>
+            <input id="password" name="password" type="text" value="">
+        </li>
+        <li>
+            <input id="login" name="login" type="submit" value="Login!">
+        </li>
+    </ul>
 	</form>
         <script src="js/main.js"></script>
     </body>
