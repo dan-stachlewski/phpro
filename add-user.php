@@ -41,7 +41,7 @@ $_SESSION['form_token'] = $form_token;
 			<p>
 				<input type="hidden" name="form_token" value="<?= $form_token; ?>" >
 		<!-- SUBMIT BUTTON [ LOGIN ] -->
-				<input type="submit" value="&rarr; Login" >
+				<input type="submit" value="Login!" >
 			</p>
 		</fieldset>
 	</form>
