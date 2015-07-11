@@ -9,38 +9,61 @@ if (!isset($_POST['username'], $_POST['password'], $_POST['form_token'])) {
 }
 
 /*** CHECK: FORM TOKEN IS VALID ***/
-elseif ($_POST['form_token']) {
+elseif ($_POST['form_token'] !=$_SESSION['form-token']) {
+    $message = 'Invalid Form submission!';
+}
+
+/*** CHECK: USERNAME IS THE CORRECT LENGTH ***/
+elseif (strlen($_POST['username']) > 20 || strlen($_POST['username']) < 4) {
+    $message = 'Incorrect length for Username!';
+
+}
+/*** CHECK: PASSWORD IS THE CORRECT LENGTH ***/
+elseif (strlen($_POST['password']) > 20 || strlen($_POST['password']) < 4) {
+    $message = 'Incorrect length for Password!';
+}
+
+/*** CHECK: USERNAME HAS ONLY ALPHANUMERIC [ CONSISTING OF LETTERS & NUMBERS ONLY ] CHARACTERS ***/
+elseif (ctype_alnum($_POST['username']) != true) {
+    /*** CHECK: IF THERE IS NO MATCH ***/
+    $message = 'Username must be Alpha Numeric - No special characters allowed!';
+}
+
+/*** CHECK: PASSWORD HAS ONLY ALPHANUMERIC CHARACTERS ***/
+elseif (ctype_alnum($_POST['password']) != true) {
+    /*** CHECK: IF THERE IS NO MATCH ***/
+    $message = 'Password must be Alpha Numeric - No special characters allowed!';
+} else {
+    /*** IF WE ARE HERE: THE DATA IS VALILD & WE CAN INSERT THE DATA INTO THE DATABASE ***/
+        $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+        $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+
+    /*** ENCRYPT THE PASSWORD ***/
+    $password = sha1($password);
+
+    /*** CREATE A DATABASE CONNECTION ***/
+
+    /*** MySQL HOSTNAME ***/
+    /*** MySQL USERNAME ***/
+    /*** MySQL PASSWORD ***/
+    /*** MySQL DATABASE NAME ***/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
+
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Sample Login</title>
-        <link rel="stylesheet" href="css/style.css"> <link rel="author" href="humans.txt">
-    </head>
-    <body>
-	<h1>Sample Login</h1>
-	<form action="add-user-submit.php" method="POST">
-    <ul>
-        <li>
-            <label for="username">Username</label>
-            <input id="username" name="username" type="text" value="">
-        </li>
-        <li>
-            <label for="password">Password</label>
-            <input id="password" name="password" type="text" value="">
-        </li>
-        <li>
-            <input id="login" name="login" type="submit" value="Login!">
-        </li>
-    </ul>
-	</form>
-        <script src="js/main.js"></script>
-    </body>
-</html>
