@@ -42,28 +42,73 @@ elseif (ctype_alnum($_POST['password']) != true) {
     $password = sha1($password);
 
     /*** CREATE A DATABASE CONNECTION ***/
+        /*** MySQL HOSTNAME ***/
+        $mysql_hostname = 'localhost';
+        /*** MySQL USERNAME ***/
+        $mysql_username = 'root';
+        /*** MySQL PASSWORD ***/
+        $mysql_password = 'password';
+        /*** MySQL DATABASE NAME ***/
+        $mysql_dbname = 'authorized';
 
-    /*** MySQL HOSTNAME ***/
-    /*** MySQL USERNAME ***/
-    /*** MySQL PASSWORD ***/
-    /*** MySQL DATABASE NAME ***/
+    /*** USE try{}catch{} ***/
+    try {
+        $dbh = new PDO("mysql:host = $mysql_hostname; dbname = $mysql_dbname", $mysql_username, $mysql_password);
+            /*** ADD SUCCESSFUL CONNECTION MESSAGE - DEV PURPOSES ONLY ***/
+            $message = 'You have successfully connected to {$mysql_dbname}!';
 
+            /*** SET ERROR MODE TO EXCEPTIONS ***/
+            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+            /*** PREPARE THE INSERT ***/
+            $stmt = $dbh->prepare("INSERT INTO users
+                                   (username, password)
+                                   VALUES
+                                   (:username, :password)
+                                 ");
 
+            /*** BIND THE PARAMETERS ***/
+            $stmt->bidParam(':username', $username, PDO::PARAM_STR);
+            $stmt->bidParam(':password', $password, PDO::PARAM_STR, 40);
 
+            /*** EXECUTE THE PREPARED STATEMENT ***/
+            $stmt->execute();
 
+            /*** UNSET THE FORM TOKEN SESSION VARIABLE ***/
+            unset($_SESSION['form_token']);
 
+            /*** IF NO ERRORS - ADVISE NEW USER ADDED ***/
+            $message = 'New User successfully added!';
 
-
-
-
-
-
-
-
-
+    } catch(Exception $e) {
+            /*** CHECK IF USERNAME ALREADY EXISTS ***/
+            if ($e->getCode() == 2300) {
+                $message = 'Username already exists! Try again.';
+            } else {
+            /*** IF MESSAGE RECEIVED SOMETHING HAS GONE WRONG WITH DATABASE CONNECTION ***/
+                $message = 'We are unable to process your request. Please try again later.';
+            }
+    }
 }
 
-
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>PHP Login!</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="author" href="humans.txt">
+    </head>
+    <body>
+    <h1>PHP Login!</h1>
+    <p><?= $message; ?></p>
+        <script src="js/main.js"></script>
+    </body>
+</html>
+
+
 
