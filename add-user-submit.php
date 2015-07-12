@@ -9,7 +9,7 @@ if (!isset($_POST['username'], $_POST['password'], $_POST['form_token'])) {
 }
 
 /*** CHECK: FORM TOKEN IS VALID ***/
-elseif ($_POST['form_token'] !=$_SESSION['form-token']) {
+elseif ($_POST['form_token'] != $_SESSION['form_token']) {
     $message = 'Invalid Form submission!';
 }
 
@@ -61,15 +61,11 @@ elseif (ctype_alnum($_POST['password']) != true) {
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             /*** PREPARE THE INSERT ***/
-            $stmt = $dbh->prepare("INSERT INTO users
-                                   (username, password)
-                                   VALUES
-                                   (:username, :password)
-                                 ");
+            $stmt = $dbh->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
 
             /*** BIND THE PARAMETERS ***/
-            $stmt->bidParam(':username', $username, PDO::PARAM_STR);
-            $stmt->bidParam(':password', $password, PDO::PARAM_STR, 40);
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR, 40);
 
             /*** EXECUTE THE PREPARED STATEMENT ***/
             $stmt->execute();
