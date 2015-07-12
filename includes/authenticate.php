@@ -1,12 +1,14 @@
 <?php
-if (!file_exists($userlist) || is_readable($userlist)) {
+/*** REF TO [ pp250 ] FOR LOGIN & LOGOUT INC CODE ***/
+
+if (!file_exists($userlist) || !is_readable($userlist)) {
 	$error = 'Logon Facility unavailable. Please try later.';
 } else {
 	$file = fopen($userlist, 'r');
 	/*** IGNORE THE TITLES IN THE 1ST ROW OF THE CSV FILE ***/
 	$titles = fgetcsv($file);
 	/*** LOOP THROUGH REMAINING LINES ***/
-	while(($data = fgetcsv($file) !== false)) {
+	while(($data = fgetcsv($file)) !== false) {
 		/*** IGNORE IF THE 1ST ELEMENT IS NULL ***/
 		if (is_null($data[0])) {
 			continue;
@@ -25,10 +27,9 @@ if (!file_exists($userlist) || is_readable($userlist)) {
 		header("Location: $redirect");
 		exit;
 	} else {
-		$error = 'Invalid Username or Password!'
+		$error = 'Invalid Username or Password!';
 	}
 }
-
 
 
 

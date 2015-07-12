@@ -1,4 +1,5 @@
 <?php
+/*** REF TO [ pp250 ] FOR LOGIN & LOGOUT INC CODE ***/
 
 $error = '';
 if (isset($_POST['login'])) {
@@ -6,7 +7,7 @@ if (isset($_POST['login'])) {
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	/*** LOCATION OF USERNAME & PASSWORD ***/
-	$userlist = 'C:\xampp\htdocs\private';
+	$userlist = 'C:\xampp\htdocs\private\users.csv';
 	/*** LOCATION TO REDIRECT ON SUCCESS ***/
 	$redirect = 'menu.php';
 	require_once 'includes/authenticate.php';
@@ -24,13 +25,16 @@ if (isset($_POST['login'])) {
         <link rel="stylesheet" href="css/login.css"> <link rel="author" href="humans.txt">
     </head>
     <body>
+    <header>
+
+    </header>
     <div id="page-wrapper">
-		<h1>Sample Login</h1>
+		<h1 class="warning-header">User Login</h1>
 		<form action="" method="POST">
 		<fieldset>
 		<?php
 		if ($error) {
-			echo "<p>{$errors}</p>";
+			echo "<p class=\"warning\">{$error}</p>";
 		}
 		?>
 		    <ul>
