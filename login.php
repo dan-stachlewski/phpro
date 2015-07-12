@@ -28,6 +28,11 @@ if (isset($_POST['login'])) {
 		<h1>Sample Login</h1>
 		<form action="" method="POST">
 		<fieldset>
+		<?php
+		if ($error) {
+			echo "<p>{$errors}</p>";
+		}
+		?>
 		    <ul>
 		        <li>
 		            <label for="username">Username</label>
